@@ -1,0 +1,50 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+
+    <!-- Website Name -->
+    <a class="navbar-brand" href="{% url 'videos:home' %}">Video Auth</a>
+
+    <ul class="navbar-nav ms-auto">
+
+      <!-- Home Link -->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'videos:home' %}">Home</a>
+      </li>
+
+      <!-- If user is logged in -->
+      {% if user.is_authenticated %}
+
+          <!-- Show username -->
+          <li class="nav-item">
+            <a class="nav-link disabled">Hello, {{ user.username }}</a>
+          </li>
+
+          <!-- Logout form (POST request) -->
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="document.getElementById('logoutForm').submit(); return false;">Logout</a>
+            <form id="logoutForm" method="POST" action="{% url 'accounts:logout' %}" style="display: none;">
+              {% csrf_token %}
+            </form>
+          </li>
+
+      <!-- If user is NOT logged in -->
+      {% else %}
+
+          <!-- Login link -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+          </li>
+
+          <!-- Register link -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
+          </li>
+
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+
+
